@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+</head>
+<body>
+  <form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
+    <label for="first_name">Enter first name: </label>
+    <input type="text" th:field="*{firstName}" id="first_name" name="first_name">
+    <div th:if="${#fields.hasErrors()}" th:errors="*{firstName}"></div>
+    <br>
+
+    <label for="last_name">Enter last name: </label>
+    <input type="text" th:field="*{lastName}" id="last_name" name="last_name">
+    <div th:if="${#fields.hasErrors()}" th:errors="*{lastName}"></div>
+    <br>
+
+    <label for="email">Enter email: </label>
+    <input type="email" th:field="*{email}" id="email" name="email">
+    <div th:if="${#fields.hasErrors()}" th:errors="*{email}"></div>
+    <br>
+
+    <label for="password">Enter password: </label>
+    <input type="password" th:field="*{password}" id="password" name="password">
+    <div th:if="${#fields.hasErrors()}" th:errors="*{password}"></div>
+    <br>
+
+    <label for="phone_number">Enter phone number: </label>
+    <input type="text" th:field="*{phoneNumber}" id="phone_number" name="phone_number">
+    <div th:if="${#fields.hasErrors()}" th:errors="*{phoneNumber}"></div>
+    <br>
+
+    <label for="role">Select user role:</label>
+    <select th:field="*{role}" id="role" name="role">
+      <option value="STUDENT">STUDENT</option>
+      <option value="ADMIN">ADMIN</option>
+      <option value="TEACHER">TEACHER</option>
+    </select>
+    <div th:if="${#fields.hasErrors()}" th:errors="*{role}"></div>
+    <br>
+
+    <!-- Add a submit button to submit the form -->
+    <input type="submit" value="Create">
+
+  </form>
+</body>
+</html>
