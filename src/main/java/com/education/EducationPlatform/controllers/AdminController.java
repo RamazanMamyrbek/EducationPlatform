@@ -30,25 +30,25 @@ public class AdminController {
     @GetMapping("/users")
     public String showAllUsersPage(Model model) {
         model.addAttribute("users",userService.findAllUsers());
-        return "user/index";
+        return "admin/user/index";
     }
 
     @GetMapping("/users/{id}")
     public String showUserPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
-        return "user/show";
+        return "admin/user/show";
     }
 
     @GetMapping("/users/new")
     public String addUserPage(@ModelAttribute("user")User user) {
-        return "user/new";
+        return "admin/user/new";
     }
 
     @PostMapping("/users")
     public String addUser(@ModelAttribute("user") @Valid User user,
                           BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return "user/new";
+            return "admin/user/new";
         userService.addUser(user);
         return "redirect:/admin/users";
     }
@@ -56,14 +56,14 @@ public class AdminController {
     @GetMapping("/users/{id}/edit")
     public String editUserPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
-        return "user/edit";
+        return "admin/user/edit";
     }
 
     @PatchMapping("/users/{id}")
     public String editUser(@ModelAttribute("user") @Valid User user,
                            BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
-            return "user/edit";
+            return "admin/user/edit";
         userService.updateUser(id, user);
         return "redirect:/admin/users/" + id;
     }
@@ -78,25 +78,25 @@ public class AdminController {
     @GetMapping("/courses")
     public String showAllCoursesPage(Model model) {
         model.addAttribute("courses",courseService.findAllCourses());
-        return "course/index";
+        return "admin/course/index";
     }
 
     @GetMapping("/courses/{id}")
     public String showCoursePage(@PathVariable("id") int id, Model model) {
         model.addAttribute("course", courseService.findCourseById(id));
-        return "course/show";
+        return "admin/course/show";
     }
 
     @GetMapping("/courses/new")
     public String addCoursePage(@ModelAttribute("course") Course course) {
-        return "course/new";
+        return "admin/course/new";
     }
 
     @PostMapping("/courses")
     public String addCourse(@ModelAttribute("course") @Valid Course course,
                           BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return "course/new";
+            return "admin/course/new";
         courseService.addCourse(course);
         return "redirect:/admin/courses";
     }
@@ -104,14 +104,14 @@ public class AdminController {
     @GetMapping("/courses/{id}/edit")
     public String editCoursePage(@PathVariable("id") int id, Model model) {
         model.addAttribute("course", courseService.findCourseById(id));
-        return "course/edit";
+        return "admin/course/edit";
     }
 
     @PatchMapping("/courses/{id}")
     public String editCourse(@ModelAttribute("course") @Valid Course course,
                            BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
-            return "course/edit";
+            return "admin/course/edit";
         courseService.updateCourse(id, course);
         return "redirect:/admin/courses/" + id;
     }

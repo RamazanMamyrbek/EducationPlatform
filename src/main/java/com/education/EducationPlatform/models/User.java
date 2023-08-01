@@ -34,7 +34,7 @@ public class User{
 
     @Column(name = "password")
     @NotEmpty(message = "This field shouldn't be empty")
-    @Size(min = 8, max = 30, message = "This field should be between 8 and 30 characters")
+    @Size(min = 8, max = 100, message = "This field should be between 8 and 30 characters")
     private String password;
 
     @Column(name = "phone_number")
