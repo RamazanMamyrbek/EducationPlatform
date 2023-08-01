@@ -19,7 +19,7 @@ public class User{
 
     @Column(name = "first_name")
     @NotEmpty(message = "This field shouldn't be empty")
-    @Size(min = 2, max = 150, message = "This field should be between 2 and 30 characters")
+    @Size(min = 2, max = 30, message = "This field should be between 2 and 30 characters")
     private String firstName;
 
     @Column(name = "last_name")
@@ -34,7 +34,7 @@ public class User{
 
     @Column(name = "password")
     @NotEmpty(message = "This field shouldn't be empty")
-    @Size(min = 8, max = 150, message = "This field should be between 8 and 30 characters")
+    @Size(min = 8, max = 30, message = "This field should be between 8 and 30 characters")
     private String password;
 
     @Column(name = "phone_number")
