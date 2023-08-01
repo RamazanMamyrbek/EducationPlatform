@@ -33,9 +33,9 @@
 
     <label for="role">Select user role:</label>
     <select th:field="*{role}" id="role" name="role">
-      <option value="STUDENT">STUDENT</option>
-      <option value="ADMIN">ADMIN</option>
-      <option value="TEACHER">TEACHER</option>
+      <option value="ROLE_STUDENT">STUDENT</option>
+      <option value="ROLE_ADMIN">ADMIN</option>
+      <option value="ROLE_TEACHER">TEACHER</option>
     </select>
     <div th:if="${#fields.hasErrors()}" th:errors="*{role}"></div>
     <br>
