@@ -12,8 +12,8 @@ CREATE TABLE COURSES(
 );
 
 CREATE TABLE users_courses(
-                              user_id INT REFERENCES USERS(id),
-                              course_id INT REFERENCES COURSES(id),
+                              user_id INT REFERENCES USERS(id) ON DELETE CASCADE ,
+                              course_id INT REFERENCES COURSES(id) ON DELETE CASCADE ,
                               PRIMARY KEY (user_id, course_id)
 );
 
