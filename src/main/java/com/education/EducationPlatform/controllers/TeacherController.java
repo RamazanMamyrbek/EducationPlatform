@@ -27,10 +27,24 @@ public class TeacherController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/profile")
-    public String myProfilePage(){
-        //TODO
-        return "teacher/myProfile";
+    public String myProfilePage(Model model){
+        model.addAttribute("teacher", userService.findUserById(getUserFromSession().getId()));
+        return "teacher/profile";
+    }
+    @GetMapping("/edit")
+    public String editProfilePage(Model model) {
+        model.addAttribute("teacher", userService.findUserById(getUserFromSession().getId()));
+        return "teacher/edit";
+    }
+    @PatchMapping()
+    public String editProfile(@ModelAttribute("teacher") @Valid User user,                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {            return "teacher/edit";
+        }        userService.updateUser(getUserFromSession().getId(), user);
+        return "redirect:/teachers/profile";    }
+    @DeleteMapping()
+    public String deleteProfile() {
+        userService.deleteUser(getUserFromSession().getId());
+        return "redirect:/logout";
     }
     @GetMapping("/courses/new")
     public String createCoursePage(@ModelAttribute("course") Course course){
