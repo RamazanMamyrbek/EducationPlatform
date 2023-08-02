@@ -12,13 +12,13 @@
     <div th:text="'Link: ' + ${course.getLink()}"></div>
   </div>
 
-  <div th:if="${user.getCourses().isEmpty()}">
+  <div th:if="${!user.getCourses().contains(course)}">
     <form th:method="POST" th:action="@{/students/courses/{id}/enroll(id=(${course.getId()}))}">
       <input type="submit" value="Enroll">
     </form>
   </div>
 
-  <div th:if="${!user.getCourses().isEmpty()}">
+  <div th:if="${user.getCourses().contains(course)}">
     <form th:method="POST" th:action="@{/students/courses/{id}/drop(id=(${course.getId()}))}">
       <input type="submit" value="Drop">
     </form>
