@@ -10,10 +10,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/students")
@@ -55,10 +55,40 @@ public class StudentController {
         return "redirect:/students/courses/" + courseId;
     }
 
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        model.addAttribute("student", userService.findUserById(getUserFromSession().getId()));
+        return "student/profile";
+    }
+
+    @GetMapping("/edit")
+    public String editProfilePage(Model model) {
+        model.addAttribute("student", userService.findUserById(getUserFromSession().getId()));
+        return "student/edit";
+    }
+
+    @PatchMapping()
+    public String editProfile(@ModelAttribute("student") @Valid User user,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "student/edit";
+        }
+        userService.updateUser(getUserFromSession().getId(), user);
+        return "redirect:/students/profile";
+    }
+
+    @DeleteMapping()
+    public String deleteProfile() {
+        userService.deleteUser(getUserFromSession().getId());
+        return "redirect:/logout";
+    }
+
     private User getUserFromSession(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((MyUserDetails) authentication.getPrincipal()).getUser();
         return user;
     }
+
+
 
 }
