@@ -11,5 +11,12 @@
     <div th:text="'Price: ' + ${course.getPrice()}"></div>
     <div th:text="'Link: ' + ${course.getLink()}"></div>
   </div>
+
+  <div th:if="${user.getCourses().contains(course)}">
+    <a th:href="@{/teachers/courses/{id}/edit(id=(${course.getId()}))}">Edit</a>
+    <form th:method="DELETE" th:action="@{/teachers/courses/{id}(id=(${course.getId()}))}">
+      <input type="submit" value="Delete course">
+    </form>
+  </div>
 </body>
 </html>

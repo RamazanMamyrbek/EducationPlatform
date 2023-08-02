@@ -38,6 +38,7 @@ public class TeacherController {
     }
     @GetMapping("/courses/{id}")
     public String show(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("user", userService.findUserById(getUserFromSession().getId()));
         model.addAttribute("course", courseService.findCourseById(id));
         return "teacher/course/show";
     }
@@ -65,6 +66,11 @@ public class TeacherController {
             return "teacher/course/edit";
         courseService.updateCourse(course_id, course);
         return "redirect:/teachers/courses/" + course_id;
+    }
+    @DeleteMapping("/courses/{course_id}")
+    public String deleteCourse(@PathVariable("course_id") Integer courseId){
+        courseService.deleteCourse(courseId);
+        return "redirect:/teachers/profile";
     }
     private boolean hasCourse(Course course){
         User user = getUserFromSession();
