@@ -55,10 +55,18 @@ public class StudentController {
         return "redirect:/students/courses/" + courseId;
     }
 
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        model.addAttribute("student", userService.findUserById(getUserFromSession().getId()));
+        return "student/profile";
+    }
+
     private User getUserFromSession(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = ((MyUserDetails) authentication.getPrincipal()).getUser();
         return user;
     }
+
+
 
 }

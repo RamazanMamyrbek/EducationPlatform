@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+  <div>
+    <div th:text="'Id: ' + ${student.getId()}"></div>
+    <div th:text="'Name: ' + ${student.getFirstName()}"></div>
+    <div th:text="'Surname: ' + ${student.getLastName()}"></div>
+    <div th:text="'Email: ' + ${student.getEmail()}"></div>
+    <div th:text="'Phone number: ' + ${student.getPhoneNumber()}"></div>
+    <div th:text="'Role: ' + ${student.getRole()}"></div>
+  </div>
+
+  <div th:if="${student.getCourses().isEmpty()}">
+    This student didn't take any courses.
+  </div>
+
+  <div th:if="${!student.getCourses().isEmpty()}">
+    <div>Courses: </div>
+    <div th:each="course: ${student.getCourses()}" >
+      <a th:href="@{/students/courses/{id}(id=${course.getId()})}"
+         th:text="${course.getId()} + ': ' + ${course.getName()}"></a>
+    </div>
+  </div>
+
+</body>
+</html>
