@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "courses")
@@ -32,4 +33,10 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private List<User> users;
+
+    public void addUser(User user){
+        if (users == null)
+            users = new ArrayList<>();
+        users.add(user);
+    }
 }

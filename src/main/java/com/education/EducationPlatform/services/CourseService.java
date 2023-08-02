@@ -57,6 +57,13 @@ public class CourseService {
         user.getCourses().add(course);
         course.getUsers().add(user);
     }
+    @Transactional
+    public void createCourseByTeacher(int userId, int courseId){
+        Course course = courseRepository.findById(courseId).get();
+        User user = userRepository.findById(userId).get();
+        user.addCourse(course);
+        course.addUser(user);
+    }
 
     @Transactional
     public void dropUser(int userId, int courseId) {

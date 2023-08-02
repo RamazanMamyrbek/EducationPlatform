@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "users")
@@ -50,4 +51,10 @@ public class User{
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
+
+    public void addCourse(Course course){
+        if (courses == null)
+            courses = new ArrayList<>();
+        courses.add(course);
+    }
 }

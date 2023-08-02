@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Course</title>
+    <title>Edit course</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/teachers/createCourse}" th:object="${course}">
+  <form th:method="PATCH" th:action="@{/teachers/courses/{id}(id=${course.getId()})}" th:object="${course}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name" name="name">
     <div th:if="${#fields.hasErrors()}" th:errors="*{name}"></div>
@@ -20,7 +20,8 @@
     <input type="text" th:field="*{link}" id="link" name="link">
     <div th:if="${#fields.hasErrors()}" th:errors="*{link}"></div>
     <br>
-    <input type="submit" value="Create">
-</form>
+
+    <input type="submit" value="Submit">
+  </form>
 </body>
 </html>
