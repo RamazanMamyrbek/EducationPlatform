@@ -40,6 +40,10 @@ public class CourseService {
         courseToBeUpdated.setId(id);
         courseRepository.save(courseToBeUpdated);
     }
+    @Transactional
+    public void save(Course course){
+        courseRepository.save(course);
+    }
 
     @Transactional
     public void deleteCourse(int id) {
