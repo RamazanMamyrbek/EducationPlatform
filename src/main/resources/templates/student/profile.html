@@ -11,9 +11,9 @@
     <div th:text="'Surname: ' + ${student.getLastName()}"></div>
     <div th:text="'Email: ' + ${student.getEmail()}"></div>
     <div th:text="'Phone number: ' + ${student.getPhoneNumber()}"></div>
-    <div th:text="'Role: ' + ${student.getRole()}"></div>
+    <div th:text="'Role: Student'"></div>
   </div>
-
+  <hr>
   <div th:if="${student.getCourses().isEmpty()}">
     This student didn't take any courses.
   </div>
@@ -26,5 +26,15 @@
     </div>
   </div>
 
+  <hr>
+  <a th:href="@{/students/edit}">Edit</a>
+
+  <form th:method="DELETE" th:action="@{/students}" >
+    <input type="submit" value="Delete account">
+  </form>
+
+  <form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+  </form>
 </body>
 </html>

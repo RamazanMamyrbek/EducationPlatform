@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+  <div>
+    <div th:text="'Id: ' + ${teacher.getId()}"></div>
+    <div th:text="'Name: ' + ${teacher.getFirstName()}"></div>
+    <div th:text="'Surname: ' + ${teacher.getLastName()}"></div>
+    <div th:text="'Email: ' + ${teacher.getEmail()}"></div>
+    <div th:text="'Phone number: ' + ${teacher.getPhoneNumber()}"></div>
+    <div th:text="'Role: Teacher'"></div>
+  </div>
+  <br>
+  <div th:if="${teacher.getCourses().isEmpty()}">
+    This teacher didn't create any courses.
+  </div>
+
+  <div th:if="${!teacher.getCourses().isEmpty()}">
+    <div>Courses: </div>
+    <div th:each="course: ${teacher.getCourses()}" >
+      <a th:href="@{/teachers/courses/{id}(id=${course.getId()})}"
+         th:text="${course.getId()} + ': ' + ${course.getName()}"></a>
+    </div>
+  </div>
+
+  <hr>
+  <a th:href="@{/teachers/edit}">Edit</a>
+
+  <form th:method="DELETE" th:action="@{/teachers}">
+    <input type="submit" value="Delete account">
+  </form>
+
+  <form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+  </form>
+</body>
+</html>
