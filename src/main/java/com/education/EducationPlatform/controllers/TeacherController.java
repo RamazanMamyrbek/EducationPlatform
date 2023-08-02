@@ -20,43 +20,18 @@ import javax.validation.Valid;
 public class TeacherController {
     private final UserService userService;
     private final CourseService courseService;
-    private final UserService userService;
 
     @Autowired
-    public TeacherController(CourseService courseService) {
-        this.courseService = courseService;
+    public TeacherController(UserService userService, CourseService courseService) {
         this.userService = userService;
+        this.courseService = courseService;
     }
 
     @GetMapping("/profile")
-    public String myProfilePage(Model model){
-        model.addAttribute("teacher", userService.findUserById(getUserFromSession().getId()));
-        return "teacher/profile";
-    }
-
-    @GetMapping("/myProfile")
     public String myProfilePage(){
         //TODO
         return "teacher/myProfile";
     }
-
-    @PatchMapping()
-    public String editProfile(@ModelAttribute("teacher") @Valid User user,
-                              BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "teacher/edit";
-        }
-        userService.updateUser(getUserFromSession().getId(), user);
-        return "redirect:/teachers/profile";
-    }
-
-    @DeleteMapping()
-    public String deleteProfile() {
-        userService.deleteUser(getUserFromSession().getId());
-        return "redirect:/logout";
-    }
-
-
     @GetMapping("/courses/new")
     public String createCoursePage(@ModelAttribute("course") Course course){
         return "teacher/course/createCourse";
@@ -76,8 +51,35 @@ public class TeacherController {
         courseService.createCourseByTeacher(getUserFromSession().getId(), course.getId());
         return "redirect:/teachers/myProfile";
     }
-    @GetMapping("/editCourse")
-    public String editCoursePage(){
-
+    @GetMapping("/courses/{course_id}/edit")
+    public String editCoursePage(@PathVariable("course_id") Integer course_id, Model model){
+        Course course = courseService.findCourseById(course_id);
+        model.addAttribute("course", course);
+        if (hasCourse(course))
+            return "teacher/course/edit";
+        return "teacher/course/show";
+    }
+    @PatchMapping("/courses/{course_id}")
+    public String editCourse(@PathVariable("course_id") Integer course_id, @ModelAttribute("course") @Valid Course course,
+                             BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+            return "teacher/course/edit";
+        courseService.updateCourse(course_id, course);
+        return "redirect:/teachers/courses/" + course_id;
+    }
+    @DeleteMapping("/courses/{course_id}")
+    public String deleteCourse(@PathVariable("course_id") Integer courseId){
+        courseService.deleteCourse(courseId);
+        return "redirect:/teachers/profile";
+    }
+    private boolean hasCourse(Course course){
+        User user = getUserFromSession();
+        User teacher = userService.findUserById(user.getId());
+        return teacher.getCourses().contains(course);
+    }
+    private User getUserFromSession(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((MyUserDetails) authentication.getPrincipal()).getUser();
+        return user;
     }
 }
