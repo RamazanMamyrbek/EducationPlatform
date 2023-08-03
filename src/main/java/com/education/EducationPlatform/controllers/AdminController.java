@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
-
     private final CourseService courseService;
 
     @Autowired
@@ -24,8 +23,6 @@ public class AdminController {
         this.userService = userService;
         this.courseService = courseService;
     }
-
-
     //User control
     @GetMapping("/users")
     public String showAllUsersPage(Model model) {

@@ -6,6 +6,7 @@
 </head>
 <body>
   <form method="POST" action="/auth/login">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <label for="email">Enter emal: </label>
       <input type="text" id="email" name="username">
       <br>

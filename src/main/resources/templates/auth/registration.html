@@ -9,6 +9,7 @@
 <body>
 <div class="container">
   <form class="form-signin" method="post" action="/auth/registration" th:object="${user}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <h2>Please sign up!</h2>
     <label for="first_name">Enter first name: </label>
     <input type="text" id="first_name" th:field="*{firstName}">

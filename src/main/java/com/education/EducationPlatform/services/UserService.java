@@ -38,6 +38,7 @@ public class UserService {
     @Transactional
     public void updateUser(int id, User userToBeUpdated) {
         userToBeUpdated.setId(id);
+        userToBeUpdated.setCourses(userRepository.findById(id).get().getCourses());
         userToBeUpdated.setPassword(passwordEncoder.encode(userToBeUpdated.getPassword()));
         userRepository.save(userToBeUpdated);
     }

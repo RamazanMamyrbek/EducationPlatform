@@ -15,6 +15,7 @@
   <a th:href="@{/admin/courses/{id}/edit(id=${course.getId()})}">Edit</a>
 
   <form th:method="DELETE" th:action="@{/admin/courses/{id}(id=${course.getId()})}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input type="submit" value="Delete">
   </form>
 </body>

@@ -6,6 +6,7 @@
 </head>
 <body>
     <form th:method="POST" th:action="@{/admin/courses}" th:object="${course}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         <label for="name">Enter name: </label>
         <input type="text" th:field="*{name}" id="name" name="name">
         <div th:if="${#fields.hasErrors()}" th:errors="*{name}"></div>
