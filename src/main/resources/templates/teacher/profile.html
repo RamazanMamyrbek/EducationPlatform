@@ -21,7 +21,10 @@
       <a class="btn btn-outline-success my-2 my-sm-0"  th:if="${authentication != null && authentication.getRole().name().equals('ROLE_TEACHER')}" th:href="@{/teachers/courses/new}">Create course</a>
       <a th:if="${authentication == null}" th:href="@{/auth/login}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign in</a>
       <a th:if="${authentication == null}" th:href="@{/auth/registration}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign up</a>
-      <a th:if="${authentication != null}" th:href="@{/logout}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</a>
+      <form th:if="${authentication != null}" th:method="POST" th:action="@{/logout}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input th:href="@{/logout}" class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Logout">
+      </form>
     </div>
   </div>
 </nav>
