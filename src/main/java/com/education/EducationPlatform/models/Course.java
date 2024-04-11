@@ -31,6 +31,10 @@ public class Course {
     @Column(name = "link")
     private String link;
 
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private CourseStatus status;
+
     @ManyToMany(mappedBy = "courses")
     private List<User> users;
 

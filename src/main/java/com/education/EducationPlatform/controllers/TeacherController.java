@@ -1,6 +1,7 @@
 package com.education.EducationPlatform.controllers;
 
 import com.education.EducationPlatform.models.Course;
+import com.education.EducationPlatform.models.CourseStatus;
 import com.education.EducationPlatform.models.User;
 import com.education.EducationPlatform.services.CourseService;
 import com.education.EducationPlatform.services.UserService;
@@ -101,6 +102,22 @@ public class TeacherController {
     @DeleteMapping("/courses/{course_id}")
     public String deleteCourse(@PathVariable("course_id") Integer courseId){
         courseService.deleteCourse(courseId);
+        return "redirect:/teachers/profile";
+    }
+    @PatchMapping("/courses/{id}/startLesson")
+    public String startLesson(@PathVariable("id") int id,
+                              Model model){
+        Course course = courseService.findCourseById(id);
+        course.setStatus(CourseStatus.ACTIVE);
+        courseService.updateCourse(id, course);
+        return "redirect:/lesson/room?room=" + id;
+    }
+    @PatchMapping("/courses/{id}/endLesson")
+    public String endLesson(@PathVariable("id") int id,
+                              Model model){
+        Course course = courseService.findCourseById(id);
+        course.setStatus(CourseStatus.INACTIVE);
+        courseService.updateCourse(id, course);
         return "redirect:/teachers/profile";
     }
     private boolean hasCourse(Course course){

@@ -1,6 +1,7 @@
 package com.education.EducationPlatform.controllers;
 
 
+import com.education.EducationPlatform.models.Course;
 import com.education.EducationPlatform.models.User;
 import com.education.EducationPlatform.services.CourseService;
 import com.education.EducationPlatform.services.UserService;
@@ -87,4 +88,16 @@ public class StudentController {
         userService.deleteUser(securityContextManager.getUserFromSession().getId());
         return "redirect:/logout";
     }
+    @GetMapping("/courses/{id}/joinLesson")
+    public String joinLesson(@PathVariable("id") int id){
+        if (!hasCourse(courseService.findCourseById(id)))
+            return "redirect:/students/profile";
+        return "redirect:/lesson/room?room=" + id;
+    }
+    private boolean hasCourse(Course course){
+        User user = securityContextManager.getUserFromSession();
+        User teacher = userService.findUserById(user.getId());
+        return teacher.getCourses().contains(course);
+    }
 }
+

@@ -1,6 +1,7 @@
 package com.education.EducationPlatform.services;
 
 import com.education.EducationPlatform.models.Course;
+import com.education.EducationPlatform.models.CourseStatus;
 import com.education.EducationPlatform.models.User;
 import com.education.EducationPlatform.repositories.CourseRepository;
 import com.education.EducationPlatform.repositories.UserRepository;
@@ -42,6 +43,7 @@ public class CourseService {
     }
     @Transactional
     public void save(Course course){
+        course.setStatus(CourseStatus.INACTIVE);
         courseRepository.save(course);
     }
 

@@ -17,14 +17,12 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 let roomId = urlParams.get('room');
 
+console.log('roomId = ' + roomId);
 if(!roomId){
     roomId = 'main';
 }
+// let displayName = sessionStorage.getItem('display_name');
 
-let displayName = sessionStorage.getItem('display_name');
-if(!displayName){
-    window.location = '/lesson';
-}
 let localTracks = [];
 let remoteUsers = {};
 let localScreenTracks;
